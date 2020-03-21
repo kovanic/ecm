@@ -100,3 +100,125 @@ p7 <- data_for_plot %>% filter(year > 1998) %>%
 # 
 # # s <- summary_statistics_by_year %>% filter(year %in% c(2000, 2005, 2010, 2015))
 
+
+Northeast <- c("Connecticut", "Maine", "Massachusetts", "New Hampshire",
+               "Rhode Island", "Vermont","New Jersey", "New York","Pennsylvania")
+
+Midwest <- c("Illinois", "Indiana", "Michigan", "Ohio", "Wisconsin","Iowa",
+             "Kansas", "Minnesota", "Missouri", "Nebraska", "North Dakota",
+             "South Dakota")
+South <- c("Delaware", "Florida", "Georgia", "Maryland", "North Carolina",
+           "South Carolina", "Virginia", "District of Columbia","West Virginia","
+           Alabama", "Kentucky", "Mississippi","Tennessee", "Arkansas", "Louisiana"
+           ,"Oklahoma","Texas")
+West <- c("Arizona", "Colorado", "Idaho", "Montana", "Nevada", "New Mexico"
+          , "Utah", "Wyoming","Alaska", "California", "Hawaii", "Oregon","Washington")
+
+
+
+
+# Northeast
+p8 <- data_for_plot %>% filter(year > 1998, state %in% tolower(Northeast)) %>%
+  ggplot(aes(x = factor(year), y = opioid_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.2 Динамика количества передозировок опиоидами") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ",
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom", 
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+p9 <- data_for_plot %>% filter(year > 1998,state %in% tolower(Northeast)) %>%
+  ggplot(aes(x = factor(year), y = alldrugs_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.3 Динамика количества передозировок всеми типами наркотиков") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ", 
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+#Midwest
+p10 <- data_for_plot %>% filter(year > 1998, state %in% tolower(Midwest)) %>%
+  ggplot(aes(x = factor(year), y = opioid_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.2 Динамика количества передозировок опиоидами") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ",
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom", 
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+p11 <- data_for_plot %>% filter(year > 1998,state %in% tolower(Midwest)) %>%
+  ggplot(aes(x = factor(year), y = alldrugs_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.3 Динамика количества передозировок всеми типами наркотиков") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ", 
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+#South
+p12 <- data_for_plot %>% filter(year > 1998, state %in% tolower(South)) %>%
+  ggplot(aes(x = factor(year), y = opioid_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.2 Динамика количества передозировок опиоидами") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ",
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom", 
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+
+p13 <- data_for_plot %>% filter(year > 1998,state %in% tolower(South)) %>%
+  ggplot(aes(x = factor(year), y = alldrugs_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.3 Динамика количества передозировок всеми типами наркотиков") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ", 
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+
+#West
+p14 <- data_for_plot %>% filter(year > 1998, state %in% tolower(West)) %>%
+  ggplot(aes(x = factor(year), y = opioid_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.2 Динамика количества передозировок опиоидами") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ",
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom", 
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+# plot7
+p15 <- data_for_plot %>% filter(year > 1998,state %in% tolower(West)) %>%
+  ggplot(aes(x = factor(year), y = alldrugs_death_rate, col = factor(status))) + 
+  geom_boxplot() + 
+  ggtitle("Граф.3 Динамика количества передозировок всеми типами наркотиков") +
+  labs(x = "Годы", y = "Количество передозировок на 100.000 чел.") +
+  scale_color_manual(name="Cтепень легализации: ", 
+                     labels = c("Полный запрет", "Для медицинских целей","Для рекреацонных целей"),
+                     values=c("green", "purple", "orange"))+
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+
+

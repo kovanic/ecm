@@ -46,3 +46,33 @@ p6
 p4
 ```
 
+## Разбивка по 4 географическим зонам {.tabset}
+
+### Northeast
+
+```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
+
+ggarrange(p8, p9, ncol = 1)
+```
+
+### Midwest
+
+```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
+
+ggarrange(p10, p11, ncol = 1)
+```
+
+### South
+
+```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
+
+ggarrange(p12, p13, ncol = 1)
+```
+
+### West
+
+```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
+
+ggarrange(p14, p15, ncol = 1)
+```
+
