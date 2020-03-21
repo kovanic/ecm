@@ -1,0 +1,48 @@
+---
+title: "Американский укроп"
+author: "Valerii"
+date: "21 03 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r message=FALSE, warning=FALSE, include=FALSE}
+source("import.r", echo = FALSE, encoding = "UTF-8")
+source("plots.r", echo = FALSE, encoding = "UTF-8")
+theme_set(theme_bw() + theme(text=element_text(family="serif", size=40)))
+```
+  В KFF уровень смертности указан с поправкой на возрастную структуру 2000 года. Условный пример: в Алабаме всего две возрстных группы: больше 50 и меньше
+50. В 2000 их доли составляли 0.3 и 0.7 В 2018 было 10 смертей в возрасте больше 50 и 20 в возрасте меньше 50, а всего население составило 100 человек. Тогда общий уровень смертности с поправкой на возрастную структуру в 2018 считается так: (0.3* 10+0.7*20)/ 100 = 0.17 (или 17 чел на каждые 100 населения)
+
+
+
+## Общая ситуация - данные KFF {.tabset}
+
+### По 30 штатам
+
+```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
+p5
+```
+
+### Опиоиды
+
+```{r,echo=FALSE, fig.height=20, fig.width=30, message=FALSE, warning=FALSE}
+p7
+```
+
+
+### Все
+
+```{r,echo=FALSE, fig.height=20, fig.width=30, message=FALSE, warning=FALSE}
+p6
+```
+
+
+##  Корреляционные матрицы {.tabset}
+### матрица раз
+```{r,echo=FALSE, fig.height=40, fig.width=40, message=FALSE, warning=FALSE}
+p4
+```
+
