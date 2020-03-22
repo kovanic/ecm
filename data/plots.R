@@ -207,7 +207,7 @@ p14 <- data_for_plot %>% filter(year > 1998, state %in% tolower(West)) %>%
         legend.direction = "horizontal",
         axis.text.x = element_text(angle = 70, hjust = 1))
 
-# plot7
+
 p15 <- data_for_plot %>% filter(year > 1998,state %in% tolower(West)) %>%
   ggplot(aes(x = factor(year), y = alldrugs_death_rate, col = factor(status))) + 
   geom_boxplot() + 
@@ -219,6 +219,4 @@ p15 <- data_for_plot %>% filter(year > 1998,state %in% tolower(West)) %>%
   theme(legend.position = "bottom",
         legend.direction = "horizontal",
         axis.text.x = element_text(angle = 70, hjust = 1))
-
-
 

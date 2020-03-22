@@ -51,28 +51,30 @@ p4
 ### Northeast
 
 ```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
-
-ggarrange(p8, p9, ncol = 1)
+p8
+p9
 ```
 
 ### Midwest
 
 ```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
 
-ggarrange(p10, p11, ncol = 1)
+p10
+p11
 ```
 
 ### South
 
 ```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
-
-ggarrange(p12, p13, ncol = 1)
+p12
+p13
 ```
 
 ### West
 
 ```{r,echo=FALSE, fig.height=40, fig.width=30, message=FALSE, warning=FALSE}
 
-ggarrange(p14, p15, ncol = 1)
+p14
+p15
 ```
 

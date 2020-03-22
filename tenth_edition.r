@@ -270,6 +270,45 @@ names(deaths_3) <- c("state", "year", "drug_other_causes", "drug_homicide",
 
 
 
+#добавление пространственной переменной
+#строю матрицу смежности 
+neighbors <- read_xlsx("neighbors.xlsx")
+S <- as.matrix(neighbors[,2:ncol(neighbors)])
+a <- neighbors[,1]
+rownames(S) <- a[[1]]
+
+for(i in 1:(nrow(S)-1)){
+  for(j in (i+1):ncol(S)){
+    S[j,i] <- S[i,j]
+  }
+}
+
+# У нас для каждого года есть вектор легализации (медицинской -- M и рекреационной -- R),
+# поэтому количество соседей, легализовавших M составляет SM, а легализовавших R -- SR.
+# Важно, что и в векторе и в матрице штаты должны идти в алфавитном порядке.
+
+med_neighbors <- as.data.frame(cbind(tolower(a[[1]]), matrix(0,nrow = 51, ncol = length(c(1998:2019)))))
+names(med_neighbors) <- c("state", 1998:2019)
+
+rec_neighbors <- med_neighbors
+
+for(i in 2:ncol(med_neighbors)){
+  base <- legal%>%
+    mutate(med = tidyr::replace_na(med, 0),full = tidyr::replace_na(full, 0))%>%
+    filter(year == as.integer(names(med_neighbors)[i]))%>%arrange(state)
+  M <- as.matrix(base$med)
+  R <- as.matrix(base$full)
+  med_neighbors[,i] <-  S%*%M
+  rec_neighbors[,i] <-  S%*%R
+}
+
+
+med_1 <- gather(med_neighbors, year, med_neighbors,names(med_neighbors)[2:ncol(med_neighbors)])
+rec_1 <- gather(rec_neighbors, year, rec_neighbors,names(rec_neighbors)[2:ncol(rec_neighbors)])
+
+med_1$year <- as.numeric(med_1$year)
+rec_1$year <- as.numeric(rec_1$year)
+
 # Avengers, assemble!
 # make all state columns identical
 overdose$state <- tolower(overdose$state)
@@ -294,7 +333,9 @@ panel_data <- full_join(overdose, legal, by=c("state", "year")) %>%
   full_join(poverty, by=c("state", "year")) %>% full_join(sex_and_race, by=c("state", "year")) %>%
   full_join(marriage, by=c("state", "year")) %>% full_join(divorce, by=c("state", "year")) %>%
   full_join(deaths_1, by=c("state", "year")) %>% full_join(deaths_2, by=c("state", "year")) %>%
-  full_join(deaths_3, by=c("state", "year"))
+  full_join(deaths_3, by=c("state", "year"))%>%
+  full_join(med_1, by=c("state", "year"))%>%
+  full_join(rec_1, by=c("state", "year"))
 
 # prepare data for analysis
 panel_data_clear <- subset(panel_data, !(state %in% c("puerto rico", "new england", "mideast", 
@@ -347,8 +388,8 @@ ggcorrplot(cor((panel_data_clear %>%
 
 # prepare mini-data to visualise
 legal <- legal %>%
-  mutate(med = replace_na(med, 0),
-         full = replace_na(full, 0),
+  mutate(med = tidyr::replace_na(med, 0),
+         full = tidyr::replace_na(full, 0),
          status = med + full,
          state = tolower(state))
 
@@ -394,7 +435,7 @@ plot2 <- data_for_plot %>% filter(year > 1998) %>%
         legend.position = "bottom",
         legend.direction = "vertical")
 
-plot2
+
 
 # plot3
 plot3 <- data_for_plot %>% filter(year > 1998) %>%
@@ -412,24 +453,23 @@ plot3 <- data_for_plot %>% filter(year > 1998) %>%
         legend.position = "bottom",
         legend.direction = "vertical")
 
-plot3
 
 
-# summary statistics
-#install.packages("psych")
-# make summary
-data <- panel_data_clear %>% select(-c(1, 3:4)) %>% group_by(year)
-summary_statistics_by_year <- data.frame(describeBy(data, group="year", mat=TRUE, type=0, digits=2)) %>%
-  select(2, 4:7, 10:11)
-# delete unnecessary summary for year
-summary_statistics_by_year <- summary_statistics_by_year[-c(1:21), ] %>% drop_na()
-# edit name of the column
-names(summary)[1] <- "year"
-# add column of variables and change order of the columns
-summary_statistics_by_year$variable <- row.names(summary_statistics_by_year)
-summary_statistics_by_year <- summary_statistics_by_year[c(8, 1:7)]
-
-# s <- summary_statistics_by_year %>% filter(year %in% c(2000, 2005, 2010, 2015))
+# # summary statistics
+# #install.packages("psych")
+# # make summary
+# data <- panel_data_clear %>% select(-c(1, 3:4)) %>% group_by(year)
+# summary_statistics_by_year <- data.frame(describeBy(data, group="year", mat=TRUE, type=0, digits=2)) %>%
+#   select(2, 4:7, 10:11)
+# # delete unnecessary summary for year
+# summary_statistics_by_year <- summary_statistics_by_year[-c(1:21), ] %>% drop_na()
+# # edit name of the column
+# names(summary)[1] <- "year"
+# # add column of variables and change order of the columns
+# summary_statistics_by_year$variable <- row.names(summary_statistics_by_year)
+# summary_statistics_by_year <- summary_statistics_by_year[c(8, 1:7)]
+# 
+# # s <- summary_statistics_by_year %>% filter(year %in% c(2000, 2005, 2010, 2015))
 
 
 
