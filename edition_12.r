@@ -299,7 +299,7 @@ deaths <- deaths_0 %>% mutate(cause = as.character(Multiple.Cause.of.death),
 naming <- "prescr/%s.xlsx" %--% list(2006:2018)
 prescribtion <- data.frame()
 for (i in c(1:length(naming))) {
-  a <- read_xlsx(naming[1], skip = 1, col_names = FALSE, n_max = 52) %>% select(state=...1, prescr_rate=...3)
+  a <- read_xlsx(naming[i], skip = 1, col_names = FALSE, n_max = 52) %>% select(state=...1, prescr_rate=...3)
   a$year <- 2005 + i
   prescribtion <- rbind(prescribtion, a)
 }
